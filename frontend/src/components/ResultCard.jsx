@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { IconThumbsUp, IconThumbsDown, IconCheckCircle, IconCpu, IconSparkles } from './Icons';
 
 export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
   const [feedbackSent, setFeedbackSent] = useState(null);
@@ -6,10 +7,12 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
   if (!result) {
     return (
       <div className="glass-card empty-state">
-        <div className="empty-icon">🎯</div>
-        <h3>No Prediction Yet</h3>
+        <div className="empty-icon-wrapper">
+          <IconCpu size={36} />
+        </div>
+        <h3>No Active Prediction</h3>
         <p style={{ marginTop: '8px', fontSize: '0.88rem' }}>
-          Enter a task title and description on the left or select a 1-click test preset to see AI priority predictions.
+          Enter a task title and description on the left or select a quick test preset to see AI priority predictions.
         </p>
       </div>
     );
@@ -30,15 +33,13 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
 
   return (
     <div className={`glass-card result-card ${priorityLower}`}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="result-header">
         <span className={`priority-badge ${priorityLower}`}>
-          {priorityLower === 'high' && '🔴'}
-          {priorityLower === 'medium' && '🟠'}
-          {priorityLower === 'low' && '🟢'}
+          <span className="badge-dot"></span>
           {result.priority} Priority
         </span>
 
-        <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+        <span className="model-tag">
           {result.model_type}
         </span>
       </div>
@@ -57,7 +58,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
       </div>
 
       <div className="reason-box">
-        <div className="reason-title">💡 Automated Classification Reason</div>
+        <div className="reason-title">Automated Classification Reason</div>
         <div>{result.reason}</div>
       </div>
 
@@ -66,7 +67,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
           <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 600, marginBottom: '8px' }}>
             Class Probability Distribution:
           </p>
-          <div style={{ display: 'flex', gap: '12px', fontSize: '0.82rem', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ display: 'flex', gap: '16px', fontSize: '0.82rem', fontFamily: 'var(--font-mono)' }}>
             <div><span style={{ color: 'var(--high-red)' }}>High:</span> {(result.probabilities.High * 100).toFixed(1)}%</div>
             <div><span style={{ color: 'var(--med-amber)' }}>Medium:</span> {(result.probabilities.Medium * 100).toFixed(1)}%</div>
             <div><span style={{ color: 'var(--low-green)' }}>Low:</span> {(result.probabilities.Low * 100).toFixed(1)}%</div>
@@ -83,21 +84,21 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle }) {
             onClick={() => handleThumb('thumbs_up')}
             title="Helpful / Accurate"
           >
-            👍
+            <IconThumbsUp size={16} />
           </button>
           <button 
             className={`btn-feedback ${feedbackSent === 'thumbs_down' ? 'active' : ''}`}
             onClick={() => handleThumb('thumbs_down')}
             title="Inaccurate / Misclassified"
           >
-            👎
+            <IconThumbsDown size={16} />
           </button>
         </div>
       </div>
       {feedbackSent && (
-        <p style={{ fontSize: '0.75rem', color: '#34d399', textAlign: 'right', marginTop: '6px' }}>
-          ✓ Feedback saved to database for model retraining!
-        </p>
+        <div style={{ fontSize: '0.78rem', color: '#34d399', textAlign: 'right', marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '6px' }}>
+          <IconCheckCircle size={14} /> Feedback saved to database for retraining.
+        </div>
       )}
     </div>
   );

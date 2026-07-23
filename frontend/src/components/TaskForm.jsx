@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+import { IconCpu, IconSparkles, IconAlertTriangle } from './Icons';
 
 const PRESETS = [
   {
-    label: "🚨 Production DB Outage (High)",
+    label: "Production DB Outage (High)",
     title: "Production database connection dropping under heavy traffic load",
     description: "Postgres database drops active connections when traffic spikes above 500 req/s. Users receive HTTP 500 errors."
   },
   {
-    label: "⚡ Keyset Pagination (Medium)",
+    label: "Keyset Pagination (Medium)",
     title: "Optimize task list pagination query performance using cursor pagination",
     description: "Replace OFFSET pagination with keyset cursor pagination to improve query response time on large task boards."
   },
   {
-    label: "📝 Readme & Documentation Typos (Low)",
+    label: "Documentation Typos (Low)",
     title: "Update README installation steps and developer prerequisites",
     description: "Fix minor typos in developer setup guide documentation and update Node version requirement in docs."
   }
@@ -36,11 +37,11 @@ export default function TaskForm({ onClassify, isLoading, error }) {
   return (
     <div className="glass-card">
       <h2 className="card-title">
-        <span>📝</span> Submit Task for AI Classification
+        <IconCpu size={20} /> Submit Task for AI Classification
       </h2>
 
       <div className="presets-section">
-        <p className="presets-label">⚡ 1-Click Quick Presets for Testing:</p>
+        <p className="presets-label">Quick Test Presets:</p>
         <div className="presets-grid">
           {PRESETS.map((p, idx) => (
             <button key={idx} className="preset-chip" type="button" onClick={() => applyPreset(p)}>
@@ -81,16 +82,16 @@ export default function TaskForm({ onClassify, isLoading, error }) {
         </div>
 
         {error && (
-          <div style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: '16px', fontWeight: 600 }}>
-            ⚠️ {error}
+          <div className="error-banner">
+            <IconAlertTriangle size={18} /> {error}
           </div>
         )}
 
         <button type="submit" className="btn-submit" disabled={isLoading || !title.trim()}>
           {isLoading ? (
-            <><span>⌛</span> Classifying Priority...</>
+            <>Processing Classification...</>
           ) : (
-            <><span>🎯</span> Predict Priority Class</>
+            <>Predict Priority Class</>
           )}
         </button>
       </form>

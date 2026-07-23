@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { IconDatabase, IconSearch } from './Icons';
 
 export default function DatasetViewer({ apiHost }) {
   const [tasks, setTasks] = useState([]);
@@ -23,7 +24,6 @@ export default function DatasetViewer({ apiHost }) {
       .catch(() => setLoading(false));
   }, [apiHost]);
 
-
   const filteredTasks = tasks.filter(t => {
     const matchesPriority = filterPriority === 'ALL' || t.priority === filterPriority;
     const matchesSearch = t.title.toLowerCase().includes(search.toLowerCase()) || 
@@ -35,18 +35,23 @@ export default function DatasetViewer({ apiHost }) {
     <div className="glass-card">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '16px' }}>
         <h2 className="card-title" style={{ margin: 0 }}>
-          📁 Labelled Task Dataset ({tasks.length} tasks)
+          <IconDatabase size={20} /> Labelled Task Dataset ({tasks.length} tasks)
         </h2>
 
         <div style={{ display: 'flex', gap: '12px' }}>
-          <input 
-            type="text" 
-            className="form-input" 
-            placeholder="Search tasks..." 
-            value={search} 
-            onChange={(e) => setSearch(e.target.value)}
-            style={{ width: '220px', padding: '8px 14px' }}
-          />
+          <div style={{ position: 'relative' }}>
+            <input 
+              type="text" 
+              className="form-input" 
+              placeholder="Search tasks..." 
+              value={search} 
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ width: '220px', padding: '8px 14px 8px 36px' }}
+            />
+            <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }}>
+              <IconSearch size={16} />
+            </div>
+          </div>
 
           <select 
             className="form-input"
@@ -64,7 +69,9 @@ export default function DatasetViewer({ apiHost }) {
 
       {loading ? (
         <div className="empty-state">
-          <div className="empty-icon">⌛</div>
+          <div className="empty-icon-wrapper">
+            <IconDatabase size={36} />
+          </div>
           <p>Loading dataset...</p>
         </div>
       ) : (
@@ -91,6 +98,7 @@ export default function DatasetViewer({ apiHost }) {
                     </td>
                     <td>
                       <span className={`priority-badge ${priorityLower}`} style={{ fontSize: '0.75rem', padding: '4px 10px' }}>
+                        <span className="badge-dot"></span>
                         {t.priority}
                       </span>
                     </td>

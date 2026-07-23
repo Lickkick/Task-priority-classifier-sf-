@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import LandingPage from './components/LandingPage';
 import TaskForm from './components/TaskForm';
 import ResultCard from './components/ResultCard';
 import EvaluationDashboard from './components/EvaluationDashboard';
@@ -8,14 +9,13 @@ import Footer from './components/Footer';
 import { getApiHost } from './config';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('classifier');
+  const [activeTab, setActiveTab] = useState('landing'); // Default view is the Landing Page
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentTaskTitle, setCurrentTaskTitle] = useState('');
 
   const API_HOST = getApiHost();
-
 
   const handleClassify = async ({ title, description }) => {
     setIsLoading(true);
@@ -61,6 +61,13 @@ export default function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main>
+        {activeTab === 'landing' && (
+          <LandingPage 
+            onLaunchClassifier={() => setActiveTab('classifier')}
+            onLaunchEvaluation={() => setActiveTab('evaluation')}
+          />
+        )}
+
         {activeTab === 'classifier' && (
           <div className="main-grid">
             <TaskForm onClassify={handleClassify} isLoading={isLoading} error={error} />

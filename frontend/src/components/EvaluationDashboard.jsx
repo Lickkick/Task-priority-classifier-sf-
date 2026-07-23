@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { IconBarChart, IconAlertTriangle, IconCheckCircle } from './Icons';
 
 export default function EvaluationDashboard({ apiHost }) {
   const [evalData, setEvalData] = useState(null);
@@ -25,11 +26,12 @@ export default function EvaluationDashboard({ apiHost }) {
       });
   }, [apiHost]);
 
-
   if (loading) {
     return (
       <div className="glass-card empty-state">
-        <div className="empty-icon">⌛</div>
+        <div className="empty-icon-wrapper">
+          <IconBarChart size={36} />
+        </div>
         <h3>Loading Evaluation Metrics...</h3>
       </div>
     );
@@ -38,7 +40,9 @@ export default function EvaluationDashboard({ apiHost }) {
   if (error || !evalData) {
     return (
       <div className="glass-card empty-state">
-        <div className="empty-icon">⚠️</div>
+        <div className="empty-icon-wrapper">
+          <IconAlertTriangle size={36} />
+        </div>
         <h3>Evaluation Data Unavailable</h3>
         <p style={{ marginTop: '8px', fontSize: '0.88rem', color: '#f87171' }}>
           {error || "Run 'python train.py' on the backend to generate metrics."}
@@ -52,7 +56,9 @@ export default function EvaluationDashboard({ apiHost }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div className="glass-card">
-        <h2 className="card-title">📊 Model Train-Test Evaluation Metrics (45/15 Split)</h2>
+        <h2 className="card-title">
+          <IconBarChart size={20} /> Model Train-Test Evaluation Metrics (45/15 Split)
+        </h2>
         
         <div className="stat-grid">
           <div className="stat-card">
@@ -107,7 +113,7 @@ export default function EvaluationDashboard({ apiHost }) {
 
       <div className="glass-card">
         <h2 className="card-title">
-          <span>🧐</span> Hardest Class & Error Analysis
+          <IconAlertTriangle size={20} /> Hardest Class & Error Analysis
         </h2>
 
         <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '20px' }}>
@@ -124,7 +130,9 @@ export default function EvaluationDashboard({ apiHost }) {
         </h3>
 
         {error_analysis.error_cases.length === 0 ? (
-          <p style={{ color: '#34d399', fontSize: '0.9rem' }}>🎉 Perfect score! Zero misclassifications on held-back test set.</p>
+          <p style={{ color: '#34d399', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <IconCheckCircle size={18} /> Zero misclassifications on held-back test set.
+          </p>
         ) : (
           error_analysis.error_cases.map((caseItem, idx) => (
             <div key={idx} className="error-item">
