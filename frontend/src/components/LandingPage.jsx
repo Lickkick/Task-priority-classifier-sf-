@@ -4,7 +4,7 @@ import { IconSparkles, IconCpu, IconBarChart, IconDatabase, IconArrowRight, Icon
 export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) {
   return (
     <div className="landing-container">
-      {/* Hero Section */}
+      {/* Hero Section with Integrated Left-Aligned Stat Cards */}
       <section className="hero-section">
         <div className="hero-badge">
           <IconSparkles size={16} /> SFCollab Enterprise AI Platform
@@ -24,25 +24,25 @@ export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) 
             View Evaluation Metrics (45/15 Split)
           </button>
         </div>
-      </section>
 
-      {/* Stats Bar */}
-      <section className="stats-bar">
-        <div className="stat-item">
-          <div className="stat-number">60</div>
-          <div className="stat-desc">Self-Labelled Realistic Tasks</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">45 / 15</div>
-          <div className="stat-desc">Stratified Train / Test Split</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">66.7%</div>
-          <div className="stat-desc">Measured Test Set Accuracy</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-number">100%</div>
-          <div className="stat-desc">Zero Frontend Secrets</div>
+        {/* Compact Left-Anchored Stats Row */}
+        <div className="stats-bar">
+          <div className="stat-item">
+            <div className="stat-number">60</div>
+            <div className="stat-desc">Self-Labelled Tasks</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">45 / 15</div>
+            <div className="stat-desc">Stratified Train / Test Split</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">66.7%</div>
+            <div className="stat-desc">Measured Test Accuracy</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">100%</div>
+            <div className="stat-desc">Zero Frontend Secrets</div>
+          </div>
         </div>
       </section>
 
