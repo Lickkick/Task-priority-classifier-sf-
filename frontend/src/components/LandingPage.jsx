@@ -39,10 +39,6 @@ export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) 
             <div className="stat-number">66.7%</div>
             <div className="stat-desc">Measured Test Accuracy</div>
           </div>
-          <div className="stat-item">
-            <div className="stat-number">100%</div>
-            <div className="stat-desc">Zero Frontend Secrets</div>
-          </div>
         </div>
       </section>
 
