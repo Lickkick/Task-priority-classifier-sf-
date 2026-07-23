@@ -1,0 +1,27 @@
+# Environment & Secrets (NEVER COMMIT)
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+env/
+*.joblib
+eval_results.json
+feedback.json
+
+# Node & Frontend
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

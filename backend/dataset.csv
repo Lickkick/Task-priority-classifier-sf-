@@ -1,0 +1,61 @@
+id,title,description,priority
+1,"Production database connection dropping under load","The Postgres database drops active connections when traffic spikes above 500 req/s. Users receive HTTP 500 errors during checkout.",High
+2,"Fix authentication token expiration handling","JWT token expiration is not renewing automatically logging out active users in the middle of filling project forms.",High
+3,"Security vulnerability patch for dependency CVE-2024-9912","Remote code execution vulnerability discovered in image parser library. Needs urgent patch deployment to production.",High
+4,"Stripe payment gateway failing for international cards","Webhooks for foreign credit card transactions are failing with status 400 preventing global user signups.",High
+5,"Main web server high CPU memory leak causing crash","Node worker process memory increases continuously until OOM killer terminates main backend container every 3 hours.",High
+6,"User signup flow completely broken on mobile Safari","Form submit button is non-clickable on iOS Safari due to dynamic overlay z-index bug blocking all new mobile registration.",High
+7,"Data corruption in user profile update API","Updating avatar picture accidentally wipes user bio and location fields in the database.",High
+8,"SSL certificate expired on primary domain api.sfcollab.com","Browsers throwing security warnings and blocking all API requests across web app.",High
+9,"Fix CORS error blocking frontend API communication","Production frontend origin updated but backend CORS whitelist not updated halting frontend developer workflow.",High
+10,"API rate limiter misconfigured blocking valid admin actions","Rate limits are treating internal microservices as external clients causing system-wide service failure.",High
+11,"Email notification worker service completely stalled","Redis queue consumer crashed. Password reset emails are not being sent to users.",High
+12,"Critical vulnerability in file upload file-type validation","Users can upload arbitrary executable scripts due to missing extension sanitizer.",High
+13,"Webhook payload signature validation failure","All incoming partner integration events fail verification breaking third-party synchronization.",High
+14,"Database replication lag exceeding 10 minutes","Read replicas are significantly behind master database causing stale data reads for project dashboards.",High
+15,"Fatal crash on landing page for unauthenticated visitors","Null pointer exception when reading current user context causes white screen of death on home page.",High
+16,"Billing webhook failing to grant subscription tiers","Paid customers are not upgraded automatically after successful payment due to payload parsing bug.",High
+17,"Deploy hotfix for infinite redirect loop on login","Redirect logic loops infinitely between /login and /dashboard when cookie session expires.",High
+18,"S3 file storage bucket permissions incorrectly modified to private","Public project attachments and user avatars fail to load across entire application.",High
+19,"WebSocket connection disconnects every 30 seconds","Real-time task board updates and live chat stop functioning for active team members.",High
+20,"SQL injection vulnerability in search input parameter","Sanitization missing on task search query parameter exposing raw database queries.",High
+21,"Implement CSV export for task reporting dashboard","Add export button to allow team leads to download task lists and metrics as a CSV file.",Medium
+22,"Add dark mode toggle to user preference settings","Allow users to switch between light and dark themes in their profile preferences panel.",Medium
+23,"Optimize task list pagination query performance","Replace OFFSET pagination with keyset cursor pagination to improve query time on large task boards.",Medium
+24,"Refactor notification component to use global state","Clean up duplicated prop passing across top navigation and sidebar components.",Medium
+25,"Implement search filter by assignee and tag","Allow users to filter tasks by team member assignment and custom project tags.",Medium
+26,"Add drag and drop support for Kanban column reorganization","Integrate HTML5 drag and drop API to reorder task cards across Kanban columns.",Medium
+27,"Build user activity history log view","Display chronological audit trail of task status changes and edits made by team members.",Medium
+28,"Integrate Markdown preview in task description editor","Add tab to preview formatted Markdown before submitting task description.",Medium
+29,"Add automated email summary for weekly task progress","Send weekly summary digest to project managers containing completed vs pending tasks.",Medium
+30,"Implement task dependency linkage UI","Allow users to mark a task as blocked by or dependent on another task ID.",Medium
+31,"Upgrade React Router to v6.20 latest patch","Update frontend dependencies to benefit from latest routing performance improvements.",Medium
+32,"Add task estimated effort field in story points","Extend task creation form to accept story point estimates (1, 2, 3, 5, 8).",Medium
+33,"Implement search auto-complete dropdown","Show instant search suggestions as user types task title in global search bar.",Medium
+34,"Add multi-select batch action for archiving tasks","Enable checkbox selection to bulk move completed tasks to archive status.",Medium
+35,"Improve error toasts UI consistency","Standardize toast alert notifications styling across all dashboard screens.",Medium
+36,"Set up automated Cypress end-to-end test suite","Write automated UI tests for login task creation and profile updating flows.",Medium
+37,"Add task due date calendar picker integration","Integrate date picker component for assigning deadline dates to tasks.",Medium
+38,"Refactor backend API controller response format","Wrap API JSON responses in consistent standard envelope payload.",Medium
+39,"Implement Slack notification integration webhook","Send channel alert whenever a high priority task is created in a project board.",Medium
+40,"Cache user profile settings in browser LocalStorage","Reduce API calls on page reload by caching non-sensitive user preferences.",Medium
+41,"Update README installation steps and prerequisites","Fix minor typos in developer setup guide documentation and update Node version requirement.",Low
+42,"Change primary action button color to brand hex shade","Adjust submit button background color from #2563EB to #1D4ED8 to match brand guide.",Low
+43,"Add code comments to helper utility functions","Document date formatting functions and string sanitizer utility functions with JSDoc style comments.",Low
+44,"Update copyright year footer to 2026","Update website footer copyright text to reflect current year across all public pages.",Low
+45,"Add favicon icon for browser tab display","Replace default Vite logo icon with SFCollab custom branded favicon SVG file.",Low
+46,"Fix typo in onboarding modal welcome text","Correct spelling of 'welcome' in step 2 of initial user onboarding screen.",Low
+47,"Reorganize CSS variables in main index stylesheet","Group color variables logically under design token comment headings.",Low
+48,"Add license file to open source repository","Add standard MIT license file to root folder of public codebase.",Low
+49,"Update contributor list in project documentation","Add new team members to authors list in repository docs directory.",Low
+50,"Remove unused sample image assets from assets directory","Delete legacy PNG mockups from public folder to clean up repository size.",Low
+51,"Add tooltip hover text to dashboard icon buttons","Provide screen reader text and visible tooltips for icon-only navigation buttons.",Low
+52,"Format codebase with Prettier code formatter","Run repository-wide code auto-formatting script to align indentation and semicolon style.",Low
+53,"Add placeholder avatar for users without profile image","Show default initials fallback SVG graphic when user user avatar image fails to load.",Low
+54,"Update email template footer social media links","Replace outdated Twitter link with updated X platform URL in transaction emails.",Low
+55,"Adjust modal popup padding by 4 pixels","Increase inner padding on confirmation modal from 16px to 20px for visual breathing room.",Low
+56,"Add spellcheck attribute to task description textarea","Enable native browser spellcheck on description input field in form component.",Low
+57,"Create issue template for bug reports on GitHub","Add markdown issue template under .github/ISSUE_TEMPLATE for standardizing bug submissions.",Low
+58,"Add keyboard shortcut legend dialog window","Display popover dialog showing available hotkeys when user presses '?' key.",Low
+59,"Clean up commented out dead code in main layout component","Remove legacy navigation header code that was commented out during redesign.",Low
+60,"Update social share card preview metadata meta tags","Update OpenGraph image URL and title tags for Twitter preview cards.",Low
