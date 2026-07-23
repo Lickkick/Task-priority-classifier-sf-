@@ -5,9 +5,7 @@ import ResultCard from './components/ResultCard';
 import EvaluationDashboard from './components/EvaluationDashboard';
 import DatasetViewer from './components/DatasetViewer';
 import Footer from './components/Footer';
-
-// Default API host URL (uses window origin or proxy in dev)
-const API_HOST = import.meta.env.VITE_API_URL || '';
+import { getApiHost } from './config';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('classifier');
@@ -15,6 +13,9 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentTaskTitle, setCurrentTaskTitle] = useState('');
+
+  const API_HOST = getApiHost();
+
 
   const handleClassify = async ({ title, description }) => {
     setIsLoading(true);

@@ -6,9 +6,13 @@ export default function EvaluationDashboard({ apiHost }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${apiHost}/api/evaluation`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load evaluation metrics.");
+    const host = apiHost || 'http://localhost:8000';
+    fetch(`${host}/api/evaluation`)
+      .then(async res => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || !contentType || !contentType.includes("application/json")) {
+          throw new Error("Backend API unavailable. Ensure FastAPI server is running or VITE_API_URL is configured.");
+        }
         return res.json();
       })
       .then(data => {
@@ -16,10 +20,11 @@ export default function EvaluationDashboard({ apiHost }) {
         setLoading(false);
       })
       .catch(err => {
-        setError(err.message);
+        setError(err.message || "Failed to load evaluation metrics.");
         setLoading(false);
       });
   }, [apiHost]);
+
 
   if (loading) {
     return (

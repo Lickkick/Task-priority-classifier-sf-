@@ -7,14 +7,22 @@ export default function DatasetViewer({ apiHost }) {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch(`${apiHost}/api/dataset`)
-      .then(res => res.json())
+    const host = apiHost || 'http://localhost:8000';
+    fetch(`${host}/api/dataset`)
+      .then(async res => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || !contentType || !contentType.includes("application/json")) {
+          throw new Error("Invalid response format");
+        }
+        return res.json();
+      })
       .then(data => {
-        setTasks(data);
+        if (Array.isArray(data)) setTasks(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, [apiHost]);
+
 
   const filteredTasks = tasks.filter(t => {
     const matchesPriority = filterPriority === 'ALL' || t.priority === filterPriority;
