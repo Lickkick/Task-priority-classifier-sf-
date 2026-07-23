@@ -1,7 +1,7 @@
 # Task Priority Classifier — Submission & Written Findings Document
 
 ## 1. Public Links & Submission Deliverables
-- GitHub Repository: https://github.com/your-username/sfcollab-task-priority-classifier
+- GitHub Repository: https://github.com/Lickkick/Task-priority-classifier-sf-
 - Live Deployed Frontend URL: https://sfcollab-task-priority.vercel.app
 - Live Deployed Backend API URL: https://sfcollab-task-priority-backend.onrender.com
 - Interactive Swagger Docs: https://sfcollab-task-priority-backend.onrender.com/docs

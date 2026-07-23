@@ -11,7 +11,7 @@ Designed specifically for **100% free-tier deployment** with **zero exposed secr
 - **Live Frontend URL**: [https://sfcollab-task-priority-classifier.vercel.app](https://sfcollab-task-priority-classifier.vercel.app) *(Replace with your Vercel/Netlify URL)*
 - **Live Backend API URL**: [https://sfcollab-task-priority-backend.onrender.com](https://sfcollab-task-priority-backend.onrender.com) *(Replace with your Render URL)*
 - **Interactive API Documentation (Swagger)**: [https://sfcollab-task-priority-backend.onrender.com/docs](https://sfcollab-task-priority-backend.onrender.com/docs)
-- **Public GitHub Repository**: [https://github.com/your-username/sfcollab-task-priority-classifier](https://github.com/your-username/sfcollab-task-priority-classifier)
+- **Public GitHub Repository**: [https://github.com/Lickkick/Task-priority-classifier-sf-](https://github.com/Lickkick/Task-priority-classifier-sf-)
 
 ### 📁 Submission & Interview Helper Guides (`submission_docs/`)
 - [`submission_docs/STEP_BY_STEP_GUIDE.md`](submission_docs/STEP_BY_STEP_GUIDE.md) — Step-by-step local setup, testing, and AI model guide without emojis.
