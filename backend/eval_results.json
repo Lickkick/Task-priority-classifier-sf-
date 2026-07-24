@@ -1,0 +1,230 @@
+{
+  "dataset_total": 60,
+  "train_size": 45,
+  "test_size": 15,
+  "accuracy": 0.6667,
+  "labels": [
+    "High",
+    "Medium",
+    "Low"
+  ],
+  "confusion_matrix": [
+    [
+      3,
+      0,
+      2
+    ],
+    [
+      1,
+      3,
+      1
+    ],
+    [
+      1,
+      0,
+      4
+    ]
+  ],
+  "classification_report": {
+    "High": {
+      "precision": 0.6,
+      "recall": 0.6,
+      "f1-score": 0.6,
+      "support": 5.0
+    },
+    "Medium": {
+      "precision": 0.5714285714285714,
+      "recall": 0.8,
+      "f1-score": 0.6666666666666666,
+      "support": 5.0
+    },
+    "Low": {
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1-score": 0.75,
+      "support": 5.0
+    },
+    "accuracy": 0.6666666666666666,
+    "macro avg": {
+      "precision": 0.7238095238095238,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6722222222222222,
+      "support": 15.0
+    },
+    "weighted avg": {
+      "precision": 0.7238095238095238,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.6722222222222222,
+      "support": 15.0
+    }
+  },
+  "test_evaluations": [
+    {
+      "id": 11,
+      "title": "Email notification worker service completely stalled",
+      "true_priority": "High",
+      "predicted_priority": "High",
+      "confidence": 0.3644,
+      "is_correct": true
+    },
+    {
+      "id": 38,
+      "title": "Refactor backend API controller response format",
+      "true_priority": "Medium",
+      "predicted_priority": "High",
+      "confidence": 0.4066,
+      "is_correct": false
+    },
+    {
+      "id": 49,
+      "title": "Update contributor list in project documentation",
+      "true_priority": "Low",
+      "predicted_priority": "Low",
+      "confidence": 0.3546,
+      "is_correct": true
+    },
+    {
+      "id": 8,
+      "title": "SSL certificate expired on primary domain api.sfcollab.com",
+      "true_priority": "High",
+      "predicted_priority": "High",
+      "confidence": 0.4207,
+      "is_correct": true
+    },
+    {
+      "id": 52,
+      "title": "Format codebase with Prettier code formatter",
+      "true_priority": "Low",
+      "predicted_priority": "Low",
+      "confidence": 0.4272,
+      "is_correct": true
+    },
+    {
+      "id": 29,
+      "title": "Add automated email summary for weekly task progress",
+      "true_priority": "Medium",
+      "predicted_priority": "Medium",
+      "confidence": 0.5134,
+      "is_correct": true
+    },
+    {
+      "id": 27,
+      "title": "Build user activity history log view",
+      "true_priority": "Medium",
+      "predicted_priority": "Medium",
+      "confidence": 0.3749,
+      "is_correct": true
+    },
+    {
+      "id": 15,
+      "title": "Fatal crash on landing page for unauthenticated visitors",
+      "true_priority": "High",
+      "predicted_priority": "Low",
+      "confidence": 0.3844,
+      "is_correct": false
+    },
+    {
+      "id": 41,
+      "title": "Update README installation steps and prerequisites",
+      "true_priority": "Low",
+      "predicted_priority": "Low",
+      "confidence": 0.4091,
+      "is_correct": true
+    },
+    {
+      "id": 24,
+      "title": "Refactor notification component to use global state",
+      "true_priority": "Medium",
+      "predicted_priority": "Low",
+      "confidence": 0.3935,
+      "is_correct": false
+    },
+    {
+      "id": 58,
+      "title": "Add keyboard shortcut legend dialog window",
+      "true_priority": "Low",
+      "predicted_priority": "Low",
+      "confidence": 0.4034,
+      "is_correct": true
+    },
+    {
+      "id": 42,
+      "title": "Change primary action button color to brand hex shade",
+      "true_priority": "Low",
+      "predicted_priority": "High",
+      "confidence": 0.3463,
+      "is_correct": false
+    },
+    {
+      "id": 7,
+      "title": "Data corruption in user profile update API",
+      "true_priority": "High",
+      "predicted_priority": "Low",
+      "confidence": 0.3575,
+      "is_correct": false
+    },
+    {
+      "id": 40,
+      "title": "Cache user profile settings in browser LocalStorage",
+      "true_priority": "Medium",
+      "predicted_priority": "Medium",
+      "confidence": 0.3352,
+      "is_correct": true
+    },
+    {
+      "id": 13,
+      "title": "Webhook payload signature validation failure",
+      "true_priority": "High",
+      "predicted_priority": "High",
+      "confidence": 0.4017,
+      "is_correct": true
+    }
+  ],
+  "error_analysis": {
+    "misclassified_count": 5,
+    "hardest_class": "Medium",
+    "hardest_class_explanation": "Medium priority tasks are hardest to classify because their vocabulary overlaps with both High (e.g., 'implement', 'performance', 'upgrade') and Low (e.g., 'ui', 'format', 'update') priority tasks.",
+    "error_cases": [
+      {
+        "id": 38,
+        "title": "Refactor backend API controller response format",
+        "true_priority": "Medium",
+        "predicted_priority": "High",
+        "confidence": 0.4066,
+        "reason_for_error": "Model misclassified 'Refactor backend API controller response format' as High instead of Medium. Vocabulary features overlapped across priority boundary categories."
+      },
+      {
+        "id": 15,
+        "title": "Fatal crash on landing page for unauthenticated visitors",
+        "true_priority": "High",
+        "predicted_priority": "Low",
+        "confidence": 0.3844,
+        "reason_for_error": "Model misclassified 'Fatal crash on landing page for unauthenticated visitors' as Low instead of High. Vocabulary features overlapped across priority boundary categories."
+      },
+      {
+        "id": 24,
+        "title": "Refactor notification component to use global state",
+        "true_priority": "Medium",
+        "predicted_priority": "Low",
+        "confidence": 0.3935,
+        "reason_for_error": "Model misclassified 'Refactor notification component to use global state' as Low instead of Medium. Vocabulary features overlapped across priority boundary categories."
+      },
+      {
+        "id": 42,
+        "title": "Change primary action button color to brand hex shade",
+        "true_priority": "Low",
+        "predicted_priority": "High",
+        "confidence": 0.3463,
+        "reason_for_error": "Model misclassified 'Change primary action button color to brand hex shade' as High instead of Low. Vocabulary features overlapped across priority boundary categories."
+      },
+      {
+        "id": 7,
+        "title": "Data corruption in user profile update API",
+        "true_priority": "High",
+        "predicted_priority": "Low",
+        "confidence": 0.3575,
+        "reason_for_error": "Model misclassified 'Data corruption in user profile update API' as Low instead of High. Vocabulary features overlapped across priority boundary categories."
+      }
+    ]
+  }
+}

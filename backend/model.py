@@ -32,6 +32,14 @@ class PriorityClassifier:
 
     def load_eval_data(self):
         """Loads precomputed train-test evaluation metrics (eval_results.json)."""
+        if not os.path.exists(self.eval_path):
+            try:
+                from train import train_and_evaluate
+                print("eval_results.json missing, auto-running train_and_evaluate()...")
+                train_and_evaluate()
+            except Exception as e:
+                print(f"Error auto-generating evaluation data: {e}")
+
         if os.path.exists(self.eval_path):
             try:
                 with open(self.eval_path, "r", encoding="utf-8") as f:
