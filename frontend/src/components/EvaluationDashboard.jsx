@@ -116,7 +116,7 @@ export default function EvaluationDashboard({ apiHost }) {
           <IconAlertTriangle size={20} /> Hardest Class & Error Analysis
         </h2>
 
-        <div style={{ background: 'rgba(15, 23, 42, 0.6)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '20px' }}>
+        <div style={{ background: 'rgba(20, 20, 20, 0.8)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '20px' }}>
           <p style={{ fontSize: '0.9rem', color: '#f59e0b', fontWeight: 700, marginBottom: '6px' }}>
             Hardest Class: {error_analysis.hardest_class} Priority
           </p>

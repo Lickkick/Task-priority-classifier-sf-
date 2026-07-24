@@ -41,52 +41,6 @@ export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) 
           </div>
         </div>
       </section>
-
-      {/* Feature Grid */}
-      <section className="features-section">
-        <h2 className="section-title">Engineered for Transparency and Precision</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <IconCpu size={24} />
-            </div>
-            <h3>Scikit-Learn Classifier</h3>
-            <p>
-              Combines TF-IDF unigrams and bigrams with a balanced Logistic Regression model to calculate exact class probabilities.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <IconBarChart size={24} />
-            </div>
-            <h3>Audited Evaluation Engine</h3>
-            <p>
-              Features an interactive 3x3 confusion matrix table, classification report, and qualitative error analysis on held-back test cases.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <IconShieldAlert size={24} />
-            </div>
-            <h3>Pydantic Input Security</h3>
-            <p>
-              FastAPI backend validates inputs and strictly rejects missing or empty task titles with HTTP 400 Bad Request status codes.
-            </p>
-          </div>
-
-          <div className="feature-card">
-            <div className="feature-icon-wrapper">
-              <IconCheckCircle size={24} />
-            </div>
-            <h3>One-Line Reasoning</h3>
-            <p>
-              Generates deterministic human-readable explanations based on key technical domain trigger indicators found in task descriptions.
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
