@@ -51,14 +51,78 @@ export default function EvaluationDashboard({ apiHost }) {
     );
   }
 
-  const { accuracy, dataset_total, train_size, test_size, confusion_matrix, error_analysis } = evalData;
+  const {
+    accuracy,
+    dataset_total,
+    train_size,
+    test_size,
+    confusion_matrix,
+    error_analysis,
+    problem_type,
+    selected_model_name,
+    metrics_summary,
+    model_comparison,
+  } = evalData;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {model_comparison && (
+        <div className="glass-card">
+          <h2 className="card-title">
+            <IconBarChart size={20} /> Logistic Regression vs SVM Comparison
+          </h2>
+          <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+            {model_comparison.note} Both models are <strong>{problem_type || 'Classification (Multi-class)'}</strong>.
+            R² is for regression; this task uses accuracy, precision, recall, and F1-score.
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table className="cm-table">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Type</th>
+                  <th>Accuracy</th>
+                  <th>Macro Precision</th>
+                  <th>Macro Recall</th>
+                  <th>Macro F1</th>
+                  <th>Weighted F1</th>
+                  <th>Errors</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(model_comparison.models).map(([key, model]) => {
+                  const isWinner = model_comparison.winner === key;
+                  return (
+                    <tr key={key}>
+                      <td style={{ fontWeight: 700, color: isWinner ? '#34d399' : 'var(--text-secondary)' }}>
+                        {model.display_name}{isWinner ? ' ★' : ''}
+                      </td>
+                      <td>{model.problem_type}</td>
+                      <td>{(model.metrics.accuracy * 100).toFixed(1)}%</td>
+                      <td>{model.metrics.macro_precision.toFixed(3)}</td>
+                      <td>{model.metrics.macro_recall.toFixed(3)}</td>
+                      <td>{model.metrics.macro_f1.toFixed(3)}</td>
+                      <td>{model.metrics.weighted_f1.toFixed(3)}</td>
+                      <td>{model.misclassified_count}/15</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ fontSize: '0.85rem', color: '#34d399', marginTop: '12px' }}>
+            {model_comparison.winner_reason}
+          </p>
+        </div>
+      )}
+
       <div className="glass-card">
         <h2 className="card-title">
-          <IconBarChart size={20} /> Model Train-Test Evaluation Metrics (45/15 Split)
+          <IconBarChart size={20} /> Selected Model: {selected_model_name || 'TF-IDF + Logistic Regression'}
         </h2>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
+          {problem_type || 'Classification (Multi-class)'} · Train/Test split 45/15
+        </p>
         
         <div className="stat-grid">
           <div className="stat-card">
@@ -77,7 +141,58 @@ export default function EvaluationDashboard({ apiHost }) {
             <div className="stat-val acc">{(accuracy * 100).toFixed(1)}%</div>
             <div className="stat-label">Test Accuracy</div>
           </div>
+          {metrics_summary && (
+            <>
+              <div className="stat-card">
+                <div className="stat-val">{(metrics_summary.macro_precision * 100).toFixed(1)}%</div>
+                <div className="stat-label">Macro Precision</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-val">{(metrics_summary.macro_recall * 100).toFixed(1)}%</div>
+                <div className="stat-label">Macro Recall</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-val">{(metrics_summary.macro_f1 * 100).toFixed(1)}%</div>
+                <div className="stat-label">Macro F1-Score</div>
+              </div>
+            </>
+          )}
         </div>
+
+        {metrics_summary?.per_class && (
+          <>
+            <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '12px', marginTop: '8px' }}>
+              Per-Class Precision, Recall & F1
+            </h3>
+            <div style={{ overflowX: 'auto', marginBottom: '20px' }}>
+              <table className="cm-table">
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Support</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {evalData.labels.map((label) => {
+                    const cls = metrics_summary.per_class[label];
+                    return (
+                      <tr key={label}>
+                        <td style={{ fontWeight: 700, color: 'var(--text-secondary)' }}>{label}</td>
+                        <td>{(cls.precision * 100).toFixed(1)}%</td>
+                        <td>{(cls.recall * 100).toFixed(1)}%</td>
+                        <td>{(cls.f1_score * 100).toFixed(1)}%</td>
+                        <td>{cls.support}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
         <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '12px' }}>
           3x3 Confusion Matrix (True vs Predicted)

@@ -1,13 +1,5 @@
 # Task Priority Classifier — Submission & Written Findings Document
 
-## 1. Public Links & Submission Deliverables
-- GitHub Repository: https://github.com/Lickkick/Task-priority-classifier-sf-
-- Live Deployed Frontend URL: https://sfcollab-task-priority.vercel.app
-- Live Deployed Backend API URL: https://sfcollab-task-priority-backend.onrender.com
-- Interactive Swagger Docs: https://sfcollab-task-priority-backend.onrender.com/docs
-- Labelled Dataset CSV: Included in repository as backend/dataset.csv
-
----
 
 ## 2. Technical Architecture & Stack (3–4 Sentences)
 
@@ -30,10 +22,31 @@
 
 ## 4. Evaluation Numbers & Metrics (45/15 Stratified Split)
 
-- Total Labelled Tasks: 60 fake tasks (20 High, 20 Medium, 20 Low).
-- Training Set (75%): 45 tasks used to train the TF-IDF vectorizer and logistic regression classifier.
+- Total Labelled Tasks: 60 tasks (20 High, 20 Medium, 20 Low).
+- Training Set (75%): 45 tasks used to train the TF-IDF vectorizer and classifiers.
 - Held-Back Test Set (25%): 15 tasks kept strictly isolated during training.
-- Measured Test Accuracy: 66.67% (10 / 15 correct predictions on unseen test samples).
+
+> **Problem Type Note:** Task priority prediction is a **Multi-class Classification task** (predicting discrete labels: High, Medium, Low). $R^2$ score applies strictly to continuous regression problems. Evaluation metrics used here are **Accuracy, Precision, Recall, and F1-Score**.
+
+### Model Comparison: Logistic Regression vs Support Vector Machine (Linear SVM)
+
+| Metric / Evaluator | TF-IDF + Logistic Regression | TF-IDF + SVM (Linear Kernel) |
+| :--- | :---: | :---: |
+| **Problem Type** | Classification (Multi-class) | Classification (Multi-class) |
+| **Test Accuracy** | **66.67%** (10 / 15) | **66.67%** (10 / 15) |
+| **Macro Precision** | **72.38%** | **72.38%** |
+| **Macro Recall** | **66.67%** | **66.67%** |
+| **Macro F1-Score** | **67.22%** | **67.22%** |
+| **Weighted F1-Score** | **67.22%** | **67.22%** |
+| **Misclassified Test Items** | 5 / 15 | 5 / 15 |
+
+### Per-Class Evaluation Breakdown
+
+| Priority Class | Precision | Recall | F1-Score | Support |
+| :--- | :---: | :---: | :---: | :---: |
+| **High** | 60.0% | 60.0% | 60.0% | 5 |
+| **Medium** | 57.1% | 80.0% | 66.7% | 5 |
+| **Low** | 100.0% | 60.0% | 75.0% | 5 |
 
 ### 3x3 Confusion Matrix (True vs Predicted)
 

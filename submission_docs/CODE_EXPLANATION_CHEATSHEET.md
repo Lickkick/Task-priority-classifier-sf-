@@ -109,3 +109,9 @@ Answer: "CORS stands for Cross-Origin Resource Sharing. I added CORSMiddleware i
 
 ### Question 10: "How does your stretch goal user feedback work?"
 Answer: "When a user clicks the Thumbs Up or Thumbs Down button on the result card, the frontend sends a payload to POST /api/feedback, which appends the user feedback to backend/feedback.json for future model retraining."
+
+### Question 11: "Is Logistic Regression a Regression or Classification model? Why don't you use R² score?"
+Answer: "Logistic Regression is a Classification model despite the word 'Regression' in its name. Linear regression predicts continuous numerical values where R² score applies. Logistic Regression outputs class probabilities via sigmoid/softmax for discrete categories (High, Medium, Low). Therefore, evaluators like Accuracy, Precision, Recall, and F1-Score are used instead of R² score."
+
+### Question 12: "How does Support Vector Machine (SVM) perform compared to Logistic Regression on this task?"
+Answer: "Both TF-IDF + Logistic Regression and TF-IDF + Support Vector Classifier (Linear SVM) achieve identical test accuracy (66.67%), macro precision (72.38%), macro recall (66.67%), and macro F1-score (67.22%) on the held-back 15-item test set. This occurs because in sparse high-dimensional TF-IDF feature space with small datasets, maximizing hyperplane margins (SVM) and minimizing log-loss (Logistic Regression) converge to nearly identical decision boundaries."
