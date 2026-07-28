@@ -271,7 +271,7 @@
         "display_name": "TF-IDF + Logistic Regression",
         "problem_type": "Classification (Multi-class)",
         "task": "Predict task priority category: High, Medium, or Low",
-        "note": "Despite the name 'Regression', Logistic Regression is a classification algorithm. R\u00b2 score applies to regression problems; for this task use accuracy, precision, recall, and F1-score.",
+        "note": "Logistic Regression is a multi-class Classification algorithm (predicting discrete priority categories: High, Medium, Low). R\u00b2 score measures continuous regression fit and is not applicable here. Standard evaluators are Accuracy, Precision, Recall, and F1-score.",
         "metrics": {
           "accuracy": 0.6667,
           "macro_precision": 0.7238,
