@@ -127,9 +127,10 @@ def train_and_evaluate():
             "problem_type": "Classification (Multi-class)",
             "task": "Predict task priority category: High, Medium, or Low",
             "note": (
-                "Despite the name 'Regression', Logistic Regression is a classification "
-                "algorithm. R² score applies to regression problems; for this task use "
-                "accuracy, precision, recall, and F1-score."
+                "Logistic Regression is a multi-class Classification algorithm (predicting "
+                "discrete priority categories: High, Medium, Low). R² score measures continuous "
+                "regression fit and is not applicable here. Standard evaluators are Accuracy, "
+                "Precision, Recall, and F1-score."
             ),
             "pipeline": build_pipeline(
                 LogisticRegression(C=1.5, random_state=42, class_weight="balanced")

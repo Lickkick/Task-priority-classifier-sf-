@@ -25,32 +25,21 @@ The **Task Priority Classifier** follows a decoupled client-server architecture.
 
 ---
 
- Dataset & Model Evaluation (45/15 Train-Test Split)
+## 📊 Key Machine Learning Findings & Model Evaluation
 
-1. Labelled Dataset
-Total Samples**: 60 fake tasks modeled after real SFCollab engineering and ops workflows.
-  - **High Priority (20 tasks)**: Database crashes, security vulnerabilities, billing webhook failures, expired SSL certificates.
-  - **Medium Priority (20 tasks)**: Feature enhancements, CSV exports, pagination optimizations, dark mode toggles.
-  - **Low Priority (20 tasks)**: Documentation typos, Prettier formatting, footer copyright updates, hover tooltips.
-- **File Locations**: [`backend/dataset.json`](backend/dataset.json) and [`backend/dataset.csv`](backend/dataset.csv).
-
----
-
-### 2. Train-Test Evaluation Results
-- **Training Set (75%)**: 45 tasks (15 High, 15 Medium, 15 Low) used to train the TF-IDF n-gram vectorizer and logistic regression classifier.
-- **Held-back Test Set (25%)**: 15 tasks kept completely isolated during training.
-- **Held-Back Test Accuracy**: **66.67%** (10 / 15 correct predictions).
-
-### 3. Problem Type & Evaluators Note
-- **Classification vs Regression**: Predicting task priority categories (`High`, `Medium`, `Low`) is a **Multi-class Classification task**. 
-- **Why $R^2$ Score Does Not Apply**: $R^2$ (Coefficient of Determination) evaluates continuous numeric regression models. For discrete category classification, standard evaluators are **Accuracy, Precision, Recall, and F1-Score**.
-- **Why Classical ML over LLMs**: On a small 60-task dataset, classical ML (TF-IDF + Logistic Regression / SVM) trains in $< 1\text{ second}$, has sub-2ms CPU inference, zero cost, and zero hallucination risk—making LLMs overkill.
+### 1. Classification vs. Regression & Evaluators Clarification
+- **Problem Type:** Task priority prediction (`High`, `Medium`, `Low`) is a **Multi-Class Classification Task**, NOT a Regression task.
+- **Logistic Regression Model Type:** Despite having *"Regression"* in its name, **Logistic Regression is a classification algorithm** that models class posterior probabilities.
+- **Why $R^2$ Score Does Not Apply:** $R^2$ (Coefficient of Determination) evaluates continuous numerical regression models (e.g., house price or temperature prediction). For discrete category classification, standard evaluators are **Accuracy**, **Precision**, **Recall**, **F1-Score**, and **Confusion Matrix**.
+- **Why Classical ML over LLMs:** On a small 60-task dataset, classical ML (TF-IDF + Logistic Regression / SVM) trains in $< 1\text{ second}$, delivers $< 2\text{ms}$ CPU inference latency, operates with **$0 API cost**, and eliminates hallucination risks—making LLMs overkill.
 
 ---
 
-### 4. Model Comparison: Logistic Regression vs Support Vector Machine (Linear SVM)
+### 2. Model Comparison: Logistic Regression vs. Support Vector Machine (Linear SVM)
 
-| Evaluator / Metric | TF-IDF + Logistic Regression | TF-IDF + SVM (Linear Kernel) | Comparison |
+Both models were evaluated on the exact same held-back test set (45 train / 15 test split):
+
+| Evaluator / Metric | TF-IDF + Logistic Regression | TF-IDF + SVM (Linear Kernel) | Comparison Result |
 | :--- | :---: | :---: | :---: |
 | **Problem Type** | Multi-class Classification | Multi-class Classification | Identical |
 | **Held-Back Test Accuracy** | **66.67%** (10 / 15 correct) | **66.67%** (10 / 15 correct) | **Tie** |
@@ -58,20 +47,16 @@ Total Samples**: 60 fake tasks modeled after real SFCollab engineering and ops w
 | **Macro Recall** | **66.67%** (0.6667) | **66.67%** (0.6667) | **Tie** |
 | **Macro F1-Score** | **67.22%** (0.6722) | **67.22%** (0.6722) | **Tie** |
 | **Weighted F1-Score** | **67.22%** (0.6722) | **67.22%** (0.6722) | **Tie** |
-| **Misclassified Test Cases** | 5 / 15 | 5 / 15 | **Tie** |
+| **Misclassified Test Items** | 5 / 15 | 5 / 15 | **Tie** |
 
-#### Per-Class Metrics Breakdown (Identical across both models)
-
+#### Per-Class Metrics Breakdown (Identical Across Both Models)
 | Priority Class | Precision | Recall | F1-Score | Support (Test) |
 | :--- | :---: | :---: | :---: | :---: |
 | **High** | 60.0% | 60.0% | 60.0% | 5 |
 | **Medium** | 57.1% | 80.0% | 66.7% | 5 |
 | **Low** | 100.0% | 60.0% | 75.0% | 5 |
 
----
-
-### 5. 3x3 Confusion Matrix (True vs Predicted)
-
+#### 3x3 Confusion Matrix (True vs Predicted)
 | True \ Predicted | High (Pred) | Medium (Pred) | Low (Pred) |
 | :--- | :---: | :---: | :---: |
 | **High (True)** | **3** | 0 | 2 |
@@ -80,12 +65,23 @@ Total Samples**: 60 fake tasks modeled after real SFCollab engineering and ops w
 
 ---
 
-### 6. Hardest Class & Qualitative Error Analysis
+### 3. Hardest Class & Error Findings
 
- Hardest Class: `Medium` Priority
-- **Why it was hardest**: `Medium` priority tasks inherently share vocabulary overlap with both `High` priority tasks (e.g., words like *"implement"*, *"performance"*, *"upgrade"*) and `Low` priority tasks (e.g., words like *"UI"*, *"format"*, *"component"*). 
-- In contrast, `High` priority tasks feature distinctive emergency keywords (*"crash"*, *"outage"*, *"vulnerability"*, *"leak"*), and `Low` priority tasks feature distinct minor edit keywords (*"typo"*, *"footer"*, *"comment"*, *"docs"*).
-- **Linear Equivalence**: Linear SVM and Logistic Regression produce identical decision boundaries because sparse TF-IDF text vectors with $N=45$ training samples cause margin maximization (SVM) and log-loss minimization (Logistic Regression) to converge to the same separating hyperplanes.
+- **Hardest Class: `Medium` Priority**
+  - `Medium` priority tasks inherently share vocabulary overlap with both `High` priority tasks (e.g., words like *"implement"*, *"performance"*, *"upgrade"*) and `Low` priority tasks (e.g., words like *"UI"*, *"format"*, *"component"*).
+  - In contrast, `High` priority tasks feature distinctive emergency keywords (*"crash"*, *"outage"*, *"vulnerability"*, *"leak"*), while `Low` priority tasks feature distinct minor edit keywords (*"typo"*, *"footer"*, *"comment"*, *"docs"*).
+- **Linear Decision Boundary Convergence:** Linear SVM and Logistic Regression produce identical decision boundaries because sparse TF-IDF text vectors with $N=45$ training samples cause margin maximization (SVM) and log-loss minimization (Logistic Regression) to converge to equivalent hyperplanes.
+- **Misclassified Test Cases Breakdown:**
+  1. *Task #15: "Fatal crash on landing page for unauthenticated visitors"* → Predicted **Low** (True: **High**). Words *"visitors"* & *"page"* appeared in low-priority template tasks during training.
+  2. *Task #38: "Refactor backend API controller response format"* → Predicted **High** (True: **Medium**). Words *"backend"* & *"API"* over-indexed on server incident features.
+  3. *Task #42: "Change primary action button color to brand hex shade"* → Predicted **High** (True: **Low**). Low confidence score on boundary TF-IDF unigram weights.
+
+---
+
+### 4. Known Limitations & Future Roadmap
+1. **Vocabulary Overfitting on Small Dataset:** With 45 training examples, rare domain words (e.g., *"crash"*, *"API"*) can over-index if they appear in only 1–2 training tasks. Expanding to 300+ labelled tasks will stabilize TF-IDF n-gram weights.
+2. **Negation Unawareness:** Classical bag-of-words TF-IDF models do not handle complex sentiment negation (e.g., *"This is NOT an outage"* may still trigger a High priority prediction due to the word *"outage"*).
+3. **Cold-Start for Unseen Technical Terms:** If a user submits a task featuring brand new technologies or acronyms not present in the 60 task dataset (e.g., *"Kubernetes pod eviction"*), the model falls back on general word overlaps.
 
 ---
 
