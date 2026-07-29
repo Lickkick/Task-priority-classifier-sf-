@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
+import CompletionPredictor from './components/CompletionPredictor';
 import TaskForm from './components/TaskForm';
 import ResultCard from './components/ResultCard';
 import EvaluationDashboard from './components/EvaluationDashboard';
@@ -60,17 +61,18 @@ export default function App() {
     <div className="app-container">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <main>
+      <main className="main-content">
         {activeTab === 'landing' && (
           <LandingPage 
             onLaunchClassifier={() => setActiveTab('classifier')}
             onLaunchEvaluation={() => setActiveTab('evaluation')}
+            onLaunchPredictor={() => setActiveTab('predictor')}
           />
         )}
 
         {activeTab === 'classifier' && (
           <div className="main-grid">
-            <TaskForm onClassify={handleClassify} isLoading={isLoading} error={error} />
+            <TaskForm onSubmit={handleClassify} isLoading={isLoading} error={error} />
             <ResultCard 
               result={result} 
               onFeedback={handleFeedback} 
@@ -81,6 +83,10 @@ export default function App() {
 
         {activeTab === 'evaluation' && (
           <EvaluationDashboard apiHost={API_HOST} />
+        )}
+
+        {activeTab === 'predictor' && (
+          <CompletionPredictor apiHost={API_HOST} />
         )}
 
         {activeTab === 'dataset' && (

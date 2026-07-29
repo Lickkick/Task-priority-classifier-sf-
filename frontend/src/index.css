@@ -1143,3 +1143,238 @@ body {
   background: rgba(0, 0, 0, 0.08);
 }
 
+/* ─────────────────────────────────────────────
+   SMART PREDICTOR STYLES
+───────────────────────────────────────────── */
+
+.predictor-section {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.predictor-section .section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.predictor-section select,
+.predictor-section input,
+.predictor-section textarea {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease;
+}
+
+.predictor-section select:focus,
+.predictor-section input:focus,
+.predictor-section textarea:focus {
+  outline: none;
+  border-color: var(--text-muted);
+}
+
+.predictor-section select option {
+  background: var(--bg-card);
+}
+
+.predictor-section label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 7px;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  align-self: flex-start;
+}
+
+.btn-primary:hover {
+  background: #e5e5e5;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.88rem;
+}
+
+/* User Profile Card */
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 22px;
+  background: #0b0f19;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.user-info .user-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.user-info .user-role {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.user-info .user-efficiency {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--low-green);
+}
+
+/* Prediction Result */
+.prediction-result {
+  border-left: 4px solid #818cf8;
+  background: rgba(129, 140, 248, 0.06);
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prediction-result h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.prediction-result p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.prediction-result p strong {
+  color: var(--text-primary);
+}
+
+/* Delay Warning */
+.delay-warning {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* AI Insights Panel */
+.insights-panel {
+  border-left: 4px solid var(--med-amber);
+  background: rgba(245, 158, 11, 0.05);
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+}
+
+.insights-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.insight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.insight-item {
+  background: #0b0f19;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.insight-item strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.insight-item em {
+  color: var(--med-amber);
+  font-style: normal;
+}
+
+.insight-item span {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* high-green variable (used in UserProfileCard) */
+:root {
+  --high-green: #10b981;
+  --low-red: #ef4444;
+}
+

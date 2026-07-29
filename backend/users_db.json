@@ -1,0 +1,186 @@
+[
+  {
+    "user_id": "u001",
+    "name": "Arjun Mehta",
+    "role": "Senior Backend Engineer",
+    "avatar_color": "#6366f1",
+    "avg_hours_per_day": 6.5,
+    "efficiency_score": 0.92,
+    "task_completion_rate": 0.95,
+    "avg_delay_days": 0.8,
+    "specialty_tags": ["backend", "database", "api", "security"],
+    "historical_tasks": {
+      "high_avg_hours": 14,
+      "medium_avg_hours": 8,
+      "low_avg_hours": 2.5
+    },
+    "work_schedule": {
+      "start_hour": 9,
+      "end_hour": 18,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 127,
+    "joined_date": "2024-03-15"
+  },
+  {
+    "user_id": "u002",
+    "name": "Priya Sharma",
+    "role": "Full Stack Developer",
+    "avatar_color": "#ec4899",
+    "avg_hours_per_day": 7.0,
+    "efficiency_score": 0.88,
+    "task_completion_rate": 0.91,
+    "avg_delay_days": 1.5,
+    "specialty_tags": ["frontend", "react", "backend", "nodejs"],
+    "historical_tasks": {
+      "high_avg_hours": 16,
+      "medium_avg_hours": 9,
+      "low_avg_hours": 3
+    },
+    "work_schedule": {
+      "start_hour": 10,
+      "end_hour": 19,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 98,
+    "joined_date": "2024-06-01"
+  },
+  {
+    "user_id": "u003",
+    "name": "Rahul Verma",
+    "role": "Junior Developer",
+    "avatar_color": "#f59e0b",
+    "avg_hours_per_day": 5.0,
+    "efficiency_score": 0.65,
+    "task_completion_rate": 0.78,
+    "avg_delay_days": 3.2,
+    "specialty_tags": ["frontend", "css", "documentation"],
+    "historical_tasks": {
+      "high_avg_hours": 28,
+      "medium_avg_hours": 16,
+      "low_avg_hours": 5
+    },
+    "work_schedule": {
+      "start_hour": 10,
+      "end_hour": 17,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 42,
+    "joined_date": "2025-01-10"
+  },
+  {
+    "user_id": "u004",
+    "name": "Sneha Patel",
+    "role": "DevOps Engineer",
+    "avatar_color": "#10b981",
+    "avg_hours_per_day": 6.0,
+    "efficiency_score": 0.90,
+    "task_completion_rate": 0.93,
+    "avg_delay_days": 0.5,
+    "specialty_tags": ["devops", "ci-cd", "docker", "aws", "infrastructure"],
+    "historical_tasks": {
+      "high_avg_hours": 12,
+      "medium_avg_hours": 7,
+      "low_avg_hours": 2
+    },
+    "work_schedule": {
+      "start_hour": 8,
+      "end_hour": 17,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 114,
+    "joined_date": "2024-04-20"
+  },
+  {
+    "user_id": "u005",
+    "name": "Vikram Singh",
+    "role": "Frontend Lead",
+    "avatar_color": "#8b5cf6",
+    "avg_hours_per_day": 7.5,
+    "efficiency_score": 0.94,
+    "task_completion_rate": 0.96,
+    "avg_delay_days": 0.3,
+    "specialty_tags": ["frontend", "react", "ui-ux", "performance"],
+    "historical_tasks": {
+      "high_avg_hours": 12,
+      "medium_avg_hours": 7,
+      "low_avg_hours": 2
+    },
+    "work_schedule": {
+      "start_hour": 9,
+      "end_hour": 19,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    },
+    "total_tasks_completed": 156,
+    "joined_date": "2023-11-05"
+  },
+  {
+    "user_id": "u006",
+    "name": "Ananya Reddy",
+    "role": "QA Engineer",
+    "avatar_color": "#14b8a6",
+    "avg_hours_per_day": 6.0,
+    "efficiency_score": 0.82,
+    "task_completion_rate": 0.88,
+    "avg_delay_days": 2.1,
+    "specialty_tags": ["testing", "automation", "cypress", "quality"],
+    "historical_tasks": {
+      "high_avg_hours": 20,
+      "medium_avg_hours": 12,
+      "low_avg_hours": 4
+    },
+    "work_schedule": {
+      "start_hour": 9,
+      "end_hour": 17,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 73,
+    "joined_date": "2024-08-12"
+  },
+  {
+    "user_id": "u007",
+    "name": "Karthik Nair",
+    "role": "Security Specialist",
+    "avatar_color": "#ef4444",
+    "avg_hours_per_day": 5.5,
+    "efficiency_score": 0.86,
+    "task_completion_rate": 0.90,
+    "avg_delay_days": 1.8,
+    "specialty_tags": ["security", "vulnerability", "authentication", "encryption"],
+    "historical_tasks": {
+      "high_avg_hours": 15,
+      "medium_avg_hours": 10,
+      "low_avg_hours": 3.5
+    },
+    "work_schedule": {
+      "start_hour": 11,
+      "end_hour": 20,
+      "work_days": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "total_tasks_completed": 85,
+    "joined_date": "2024-05-18"
+  },
+  {
+    "user_id": "u008",
+    "name": "Meera Iyer",
+    "role": "Intern Developer",
+    "avatar_color": "#f97316",
+    "avg_hours_per_day": 4.0,
+    "efficiency_score": 0.55,
+    "task_completion_rate": 0.70,
+    "avg_delay_days": 4.5,
+    "specialty_tags": ["frontend", "documentation", "css"],
+    "historical_tasks": {
+      "high_avg_hours": 35,
+      "medium_avg_hours": 22,
+      "low_avg_hours": 8
+    },
+    "work_schedule": {
+      "start_hour": 10,
+      "end_hour": 16,
+      "work_days": ["Mon", "Tue", "Wed", "Thu"]
+    },
+    "total_tasks_completed": 18,
+    "joined_date": "2026-02-01"
+  }
+]

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) {
+export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation, onLaunchPredictor }) {
   return (
     <div className="lp-root">
 
@@ -56,10 +56,10 @@ export default function LandingPage({ onLaunchClassifier, onLaunchEvaluation }) 
           </div>
 
           {/* Card 3 — Ghost */}
-          <div className="lp-card lp-card--ghost">
+          <div className="lp-card lp-card--ghost" onClick={onLaunchPredictor} style={{cursor:'pointer'}}>
             <span className="lp-card-num">03</span>
-            <span className="lp-card-tag">EXPLAINABILITY</span>
-            <h3 className="lp-card-name">ONE-LINE REASON</h3>
+            <span className="lp-card-tag">SMART PREDICTOR</span>
+            <h3 className="lp-card-name">COMPLETION FORECAST</h3>
           </div>
         </div>
       </section>

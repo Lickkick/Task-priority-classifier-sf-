@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconCpu, IconBarChart, IconDatabase, IconLayers, IconSparkles } from './Icons';
+import { IconCpu, IconBarChart, IconDatabase, IconLayers, IconSparkles, IconTarget } from './Icons';
 
 export default function Header({ activeTab, setActiveTab }) {
   return (
@@ -33,12 +33,18 @@ export default function Header({ activeTab, setActiveTab }) {
         >
           <IconBarChart size={16} /> Model Evaluation (45/15)
         </button>
-        <button 
-          className={`nav-btn ${activeTab === 'dataset' ? 'active' : ''}`}
-          onClick={() => setActiveTab('dataset')}
-        >
-          <IconDatabase size={16} /> Labelled Dataset (60)
-        </button>
+          <button 
+            className={`nav-btn ${activeTab === 'dataset' ? 'active' : ''}`}
+            onClick={() => setActiveTab('dataset')}
+          >
+            <IconDatabase size={16} /> Labelled Dataset (60)
+          </button>
+          <button 
+            className={`nav-btn ${activeTab === 'predictor' ? 'active' : ''}`}
+            onClick={() => setActiveTab('predictor')}
+          >
+            <IconTarget size={16} /> Smart Predictor
+          </button>
       </nav>
     </header>
   );
