@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconCpu, IconBarChart, IconDatabase, IconLayers, IconSparkles, IconTarget } from './Icons';
+import { IconCpu, IconBarChart, IconDatabase, IconLayers, IconSparkles, IconTarget, IconUser } from './Icons';
 
 export default function Header({ activeTab, setActiveTab }) {
   return (
@@ -44,6 +44,12 @@ export default function Header({ activeTab, setActiveTab }) {
             onClick={() => setActiveTab('predictor')}
           >
             <IconTarget size={16} /> Smart Predictor
+          </button>
+          <button 
+            className={`nav-btn ${activeTab === 'workloads' ? 'active' : ''}`}
+            onClick={() => setActiveTab('workloads')}
+          >
+            <IconUser size={16} /> Team Workloads
           </button>
       </nav>
     </header>

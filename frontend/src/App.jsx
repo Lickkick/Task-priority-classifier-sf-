@@ -7,6 +7,7 @@ import ResultCard from './components/ResultCard';
 import EvaluationDashboard from './components/EvaluationDashboard';
 import DatasetViewer from './components/DatasetViewer';
 import Footer from './components/Footer';
+import WorkloadsDashboard from './components/WorkloadsDashboard';
 import { getApiHost } from './config';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentTaskTitle, setCurrentTaskTitle] = useState('');
+  const [currentTaskDescription, setCurrentTaskDescription] = useState('');
 
   const API_HOST = getApiHost();
 
@@ -22,6 +24,7 @@ export default function App() {
     setIsLoading(true);
     setError(null);
     setCurrentTaskTitle(title);
+    setCurrentTaskDescription(description);
 
     try {
       const response = await fetch(`${API_HOST}/api/classify-priority`, {
@@ -77,6 +80,8 @@ export default function App() {
               result={result} 
               onFeedback={handleFeedback} 
               currentTaskTitle={currentTaskTitle} 
+              currentTaskDescription={currentTaskDescription}
+              apiHost={API_HOST}
             />
           </div>
         )}
@@ -91,6 +96,10 @@ export default function App() {
 
         {activeTab === 'dataset' && (
           <DatasetViewer apiHost={API_HOST} />
+        )}
+
+        {activeTab === 'workloads' && (
+          <WorkloadsDashboard apiHost={API_HOST} />
         )}
       </main>
 

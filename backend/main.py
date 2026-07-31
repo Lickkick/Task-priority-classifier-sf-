@@ -33,6 +33,7 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 FEEDBACK_FILE = os.path.join(BACKEND_DIR, "feedback.json")
 USERS_DB_FILE = os.path.join(BACKEND_DIR, "users_db.json")
 FIX_KB_FILE = os.path.join(BACKEND_DIR, "fix_knowledge_base.json")
+TASKS_DB_FILE = os.path.join(BACKEND_DIR, "tasks_db.json")
 
 def load_feedback():
     """Utility to load stored feedback entries from disk."""
@@ -71,6 +72,24 @@ def load_fix_knowledge_base():
         except Exception:
             return []
     return []
+
+def load_tasks_db():
+    """Load assigned tasks from tasks_db.json."""
+    if os.path.exists(TASKS_DB_FILE):
+        try:
+            with open(TASKS_DB_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []
+    return []
+
+def save_tasks_db(data):
+    """Save assigned tasks to tasks_db.json."""
+    try:
+        with open(TASKS_DB_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print(f"Error saving tasks: {e}")
 
 # Day name to weekday number mapping
 DAY_MAP = {"Mon": 0, "Tue": 1, "Wed": 2, "Thu": 3, "Fri": 4, "Sat": 5, "Sun": 6}
@@ -122,6 +141,16 @@ class AIInsightRequest(BaseModel):
     title: str = Field(..., description="Task title to match against fix knowledge base")
     description: Optional[str] = Field(default="", description="Task description for deeper keyword matching")
     priority: Optional[str] = Field(default=None, description="Pre-classified priority label (optional)")
+
+class TaskCreateRequest(BaseModel):
+    """Input payload to save a task."""
+    title: str = Field(..., description="Task title")
+    description: Optional[str] = Field(default="", description="Task description")
+    priority: str = Field(..., description="Classified priority")
+    user_id: str = Field(..., description="User ID to assign to")
+    planned_start_date: str = Field(..., description="Planned start date ISO string")
+    predicted_completion: str = Field(..., description="Predicted completion date ISO string")
+    hours_required: float = Field(..., description="Efficiency-adjusted hours required")
 
 # API Route Handlers
 
@@ -461,4 +490,51 @@ def get_ai_insights(payload: AIInsightRequest):
             "last_updated": "2026-07-29"
         }
     }
+
+# ─── NEW: Task Assignment and Workload Endpoints ────────────────────────────
+
+@app.get("/api/tasks")
+def get_all_tasks():
+    """Returns all assigned tasks."""
+    return load_tasks_db()
+
+@app.post("/api/tasks")
+def create_task(payload: TaskCreateRequest):
+    """Saves a new assigned task."""
+    tasks = load_tasks_db()
+    users = load_users_db()
+    
+    # Verify user exists
+    user = next((u for u in users if u["user_id"] == payload.user_id), None)
+    if not user:
+        raise HTTPException(status_code=404, detail=f"User '{payload.user_id}' not found.")
+        
+    task_id = f"task_{int(datetime.utcnow().timestamp() * 1000)}"
+    new_task = {
+        "id": task_id,
+        "title": payload.title,
+        "description": payload.description,
+        "priority": payload.priority,
+        "user_id": payload.user_id,
+        "user_name": user["name"],
+        "user_role": user["role"],
+        "planned_start_date": payload.planned_start_date,
+        "predicted_completion": payload.predicted_completion,
+        "hours_required": payload.hours_required,
+        "status": "assigned",  # assigned, in_progress, completed
+        "created_at": datetime.utcnow().isoformat()
+    }
+    tasks.append(new_task)
+    save_tasks_db(tasks)
+    return new_task
+
+@app.delete("/api/tasks/{task_id}")
+def delete_task(task_id: str):
+    """Deletes an assigned task."""
+    tasks = load_tasks_db()
+    filtered_tasks = [t for t in tasks if t["id"] != task_id]
+    if len(filtered_tasks) == len(tasks):
+        raise HTTPException(status_code=404, detail=f"Task '{task_id}' not found.")
+    save_tasks_db(filtered_tasks)
+    return {"status": "success", "message": f"Task '{task_id}' deleted successfully."}
 
