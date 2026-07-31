@@ -146,10 +146,10 @@ class TaskCreateRequest(BaseModel):
     """Input payload to save a task."""
     title: str = Field(..., description="Task title")
     description: Optional[str] = Field(default="", description="Task description")
-    priority: str = Field(..., description="Classified priority")
+    priority: str = Field(..., description="Classified or selected priority")
     user_id: str = Field(..., description="User ID to assign to")
     planned_start_date: str = Field(..., description="Planned start date ISO string")
-    predicted_completion: str = Field(..., description="Predicted completion date ISO string")
+    predicted_completion: Optional[str] = Field(default=None, description="Predicted completion date ISO string (optional, calculated if missing)")
     hours_required: float = Field(..., description="Efficiency-adjusted hours required")
 
 # API Route Handlers

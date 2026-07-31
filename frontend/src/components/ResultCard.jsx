@@ -20,6 +20,8 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
   const [saveStatus, setSaveStatus] = useState('idle'); // idle, saving, saved, error
   const [saveError, setSaveError] = useState('');
 
+  const [customHours, setCustomHours] = useState('');
+
   // Fetch user options when the card is active
   useEffect(() => {
     fetch(`${apiHost}/api/users`)
@@ -35,6 +37,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
   useEffect(() => {
     setSelectedUserId('');
     setPrediction(null);
+    setCustomHours('');
     setSaveStatus('idle');
     setSaveError('');
   }, [result]);
@@ -43,6 +46,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
   useEffect(() => {
     if (!selectedUserId || !result) {
       setPrediction(null);
+      setCustomHours('');
       return;
     }
 
@@ -66,6 +70,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
       })
       .then((data) => {
         setPrediction(data);
+        setCustomHours(data.prediction.efficiency_adjusted_hours.toString());
       })
       .catch((err) => {
         console.error(err);
@@ -109,6 +114,8 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
     setSaveStatus('saving');
     setSaveError('');
 
+    const hoursToSave = customHours ? parseFloat(customHours) : prediction.prediction.efficiency_adjusted_hours;
+
     fetch(`${apiHost}/api/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -119,7 +126,7 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
         user_id: selectedUserId,
         planned_start_date: prediction.prediction.planned_start,
         predicted_completion: prediction.prediction.predicted_completion,
-        hours_required: prediction.prediction.efficiency_adjusted_hours
+        hours_required: hoursToSave
       })
     })
       .then(async (res) => {
@@ -231,9 +238,27 @@ export default function ResultCard({ result, onFeedback, currentTaskTitle, curre
               <IconClock size={14} /> Completion Prediction
             </div>
             
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 12px' }}>
-              <div>Adjusted Time:</div>
-              <div style={{ color: 'var(--text-bright)', fontWeight: 500 }}>{prediction.prediction.efficiency_adjusted_hours} hrs</div>
+            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 12px', alignItems: 'center' }}>
+              <div>Work Hours (Custom):</div>
+              <div>
+                <input 
+                  type="number"
+                  step="0.5"
+                  min="0.5"
+                  value={customHours}
+                  onChange={(e) => setCustomHours(e.target.value)}
+                  style={{
+                    width: '90px',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: '#ffffff',
+                    fontSize: '0.85rem',
+                    fontWeight: 600
+                  }}
+                /> <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>hrs</span>
+              </div>
               
               <div>Est. Completion:</div>
               <div style={{ color: 'var(--text-bright)', fontWeight: 500 }}>{prediction.prediction.completion_formatted}</div>
