@@ -72,7 +72,7 @@ export default function App() {
 
         {activeTab === 'classifier' && (
           <div className="main-grid">
-            <TaskForm onSubmit={handleClassify} isLoading={isLoading} error={error} />
+            <TaskForm onClassify={handleClassify} isLoading={isLoading} error={error} />
             <ResultCard 
               result={result} 
               onFeedback={handleFeedback} 
