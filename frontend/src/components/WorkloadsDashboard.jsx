@@ -266,7 +266,7 @@ export default function WorkloadsDashboard({ apiHost }) {
             <IconUser size={18} /> Team Members
           </h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '580px', overflowY: 'auto' }}>
+          <div className="custom-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '600px', overflowY: 'auto', paddingRight: '4px' }}>
             {users.map((u) => {
               const userTasks = getUserTasks(u.user_id);
               const userHours = userTasks.reduce((sum, t) => sum + t.hours_required, 0);

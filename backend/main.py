@@ -53,22 +53,33 @@ def save_feedback(data):
     except Exception as e:
         print(f"Error saving feedback: {e}")
 
+_USERS_CACHE = None
+_FIX_KB_CACHE = None
+
 def load_users_db():
-    """Load user productivity profiles from users_db.json."""
+    """Load user productivity profiles from users_db.json with in-memory caching."""
+    global _USERS_CACHE
+    if _USERS_CACHE is not None:
+        return _USERS_CACHE
     if os.path.exists(USERS_DB_FILE):
         try:
             with open(USERS_DB_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                _USERS_CACHE = json.load(f)
+                return _USERS_CACHE
         except Exception:
             return []
     return []
 
 def load_fix_knowledge_base():
-    """Load AI fix patterns from fix_knowledge_base.json (persistent memory)."""
+    """Load AI fix patterns from fix_knowledge_base.json (persistent memory) with in-memory caching."""
+    global _FIX_KB_CACHE
+    if _FIX_KB_CACHE is not None:
+        return _FIX_KB_CACHE
     if os.path.exists(FIX_KB_FILE):
         try:
             with open(FIX_KB_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                _FIX_KB_CACHE = json.load(f)
+                return _FIX_KB_CACHE
         except Exception:
             return []
     return []
